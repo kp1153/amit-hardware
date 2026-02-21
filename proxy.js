@@ -1,13 +1,29 @@
-import { NextResponse } from "next/server"
+import { NextResponse } from 'next/server'
 
-export function proxy(req) {
-  const auth = req.cookies.get("auth")?.value
-  if (!auth || auth !== process.env.ADMIN_SECRET) {
-    return NextResponse.redirect(new URL("/login", req.url))
+export function proxy(request) {
+  const { pathname } = request.nextUrl
+
+  if (
+    pathname === '/login' ||
+    pathname === '/' ||
+    pathname === '/about' ||
+    pathname === '/contact' ||
+    pathname.startsWith('/_next') ||
+    pathname.startsWith('/api') ||
+    pathname.includes('.')
+  ) {
+    return NextResponse.next()
   }
+
+  const auth = request.cookies.get('auth')?.value
+
+  if (auth !== process.env.SHOP_PASSWORD) {
+    return NextResponse.redirect(new URL('/login', request.url))
+  }
+
   return NextResponse.next()
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*"],
+  matcher: ['/((?!_next/static|_next/image|favicon.ico).*)'],
 }
