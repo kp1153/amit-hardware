@@ -12,7 +12,7 @@ export default function LoginPage() {
     const res = await fetch("/api/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ pass }),
+      body: JSON.stringify({ password: pass }),
     })
     if (res.ok) router.push("/dashboard")
     else setError("गलत पासवर्ड")
