@@ -1,12 +1,10 @@
-"use client"
+﻿"use client"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
-
 export default function LoginPage() {
   const [pass, setPass] = useState("")
   const [error, setError] = useState("")
   const router = useRouter()
-
   async function handleLogin(e) {
     e.preventDefault()
     const res = await fetch("/api/login", {
@@ -17,7 +15,6 @@ export default function LoginPage() {
     if (res.ok) router.push("/dashboard")
     else setError("गलत पासवर्ड")
   }
-
   return (
     <div className="min-h-screen bg-[#0f2d5e] flex items-center justify-center">
       <form onSubmit={handleLogin} className="bg-white rounded-xl p-8 w-80 space-y-4 shadow-xl">
