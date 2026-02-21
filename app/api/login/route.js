@@ -1,8 +1,8 @@
-import { NextResponse } from "next/server"
+﻿import { NextResponse } from "next/server"
 
 export async function POST(req) {
-  const { pass } = await req.json()
-  if (pass !== process.env.SHOP_PASSWORD) {
+  const { password } = await req.json()
+  if (password !== process.env.SHOP_PASSWORD) {
     return NextResponse.json({ error: "गलत पासवर्ड" }, { status: 401 })
   }
   const res = NextResponse.json({ success: true })
