@@ -38,9 +38,8 @@ export default async function PrintPage({ params }) {
       <div className="bg-white border border-gray-200 rounded-xl p-6 space-y-4 print:border-0 print:rounded-none print:p-0">
 
         <div className="text-center border-b border-gray-200 pb-4">
-          <div className="text-xl font-bold text-[#0f2d5e]">अमित इण्टरप्राइजेज एण्ड हार्डवेयर</div>
-          <div className="text-sm text-gray-500 mt-1">कोरियानी, भूसियावाँ, अमेठी, उत्तर प्रदेश</div>
-          <div className="text-sm text-gray-500">सेनेटरी · नल · PVC पाइप · पेन्ट्स · हार्डवेयर</div>
+          <div className="text-xl font-bold text-[#0f2d5e]">हार्डवेयर एवं सेनेटरी स्टोर</div>
+          <div className="text-sm text-gray-500 mt-1">हार्डवेयर · सेनेटरी · नल · PVC पाइप · पेन्ट्स</div>
         </div>
 
         <div className="flex justify-between text-sm">

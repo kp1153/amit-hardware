@@ -1,4 +1,5 @@
-﻿"use client"
+﻿// F:\amit-hardware\app\login\page.js
+"use client"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 
@@ -23,7 +24,7 @@ export default function LoginPage() {
     <div className="min-h-screen bg-[#0f2d5e] flex items-center justify-center">
       <form onSubmit={handleLogin} className="bg-white rounded-xl p-8 w-80 space-y-4 shadow-xl">
         <div className="text-center">
-          <div className="text-2xl font-bold text-[#0f2d5e]">अमित हार्डवेयर</div>
+          <div className="text-2xl font-bold text-[#0f2d5e]">हार्डवेयर मैनेजर</div>
           <div className="text-gray-400 text-sm mt-1">लॉगिन करें</div>
         </div>
         {error && <p className="text-red-500 text-sm text-center">{error}</p>}

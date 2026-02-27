@@ -1,4 +1,5 @@
-﻿"use client"
+﻿// F:\amit-hardware\components\Sidebar.js
+"use client"
 
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
@@ -41,13 +42,13 @@ export default function Sidebar() {
       <aside className="hidden md:flex w-64 h-screen bg-[#0f2d5e] flex-col fixed top-0 left-0">
         <div className="p-4 border-b border-white/10">
           <div className="text-white font-bold text-sm leading-snug">
-            अमित इंटरप्राइजेज<br />एंड हार्डवेयर
+            हार्डवेयर मैनेजर
           </div>
-          <div className="text-white/40 text-xs mt-1">कोरियानी, अमेठी</div>
+          <div className="text-white/40 text-xs mt-1">प्रबंधन प्रणाली</div>
           <div className="mt-3 flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-amber-400 flex items-center justify-center text-[#0f2d5e] font-bold text-sm">अ</div>
+            <div className="w-8 h-8 rounded-full bg-amber-400 flex items-center justify-center text-[#0f2d5e] font-bold text-sm">H</div>
             <div>
-              <div className="text-white text-xs font-semibold">अमित तिवारी</div>
+              <div className="text-white text-xs font-semibold">व्यवस्थापक</div>
               <div className="text-white/40 text-[10px]">प्रोप्राइटर</div>
             </div>
           </div>
@@ -72,8 +73,8 @@ export default function Sidebar() {
 
       {/* MOBILE TOP BAR */}
       <div className="md:hidden fixed top-0 left-0 right-0 z-50 bg-[#0f2d5e] flex items-center justify-between px-4 py-3 shadow-md">
-        <div className="text-white font-bold text-sm">अमित हार्डवेयर</div>
-        <div className="text-white/40 text-xs">कोरियानी, अमेठी</div>
+        <div className="text-white font-bold text-sm">हार्डवेयर मैनेजर</div>
+        <div className="text-white/40 text-xs">प्रबंधन प्रणाली</div>
       </div>
 
       {/* MOBILE BOTTOM NAV */}

@@ -1,9 +1,10 @@
-﻿import Navbar from "@/components/website/Navbar"
+﻿// F:\amit-hardware\app\(website)\layout.js
+import Navbar from "@/components/website/Navbar"
 import Footer from "@/components/website/Footer"
 
 export const metadata = {
-  title: "अमित इण्टरप्राइजेज एण्ड हार्डवेयर | अमेठी",
-  description: "अमेठी, उत्तर प्रदेश में सेनेटरी, नल, PVC पाइप, पेन्ट्स और हार्डवेयर सामान के लिए अमित इण्टरप्राइजेज एण्ड हार्डवेयर, कोरियानी।",
+  title: "हार्डवेयर एवं सेनेटरी स्टोर",
+  description: "हार्डवेयर, सेनेटरी, नल, PVC पाइप, पेन्ट्स और बिल्डिंग मटेरियल के लिए आपका भरोसेमंद साथी।",
 }
 
 export default function WebsiteLayout({ children }) {

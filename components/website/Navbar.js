@@ -1,4 +1,5 @@
-﻿"use client"
+﻿// F:\amit-hardware\components\website\Navbar.js
+"use client"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useState } from "react"
@@ -17,8 +18,8 @@ export default function Navbar() {
     <header className="bg-[#0f2d5e] text-white shadow-md">
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
         <div>
-          <div className="font-bold text-lg leading-tight">अमित इंटरप्राइजेज एंड हार्डवेयर</div>
-          <div className="text-white/50 text-xs">कोरियानी, भूसियावाँ, अमेठी</div>
+          <div className="font-bold text-lg leading-tight">हार्डवेयर एवं सेनेटरी स्टोर</div>
+          <div className="text-white/50 text-xs">आपका भरोसेमंद साथी</div>
         </div>
 
         {/* Desktop nav */}

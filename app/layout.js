@@ -1,4 +1,5 @@
-﻿import { Baloo_2, Noto_Sans_Devanagari } from "next/font/google"
+﻿// F:\amit-hardware\app\layout.js
+import { Baloo_2, Noto_Sans_Devanagari } from "next/font/google"
 import "./globals.css"
 
 const baloo = Baloo_2({
@@ -12,8 +13,8 @@ const noto = Noto_Sans_Devanagari({
 })
 
 export const metadata = {
-  title: "अमित इण्टरप्राइजेज एण्ड हार्डवेयर",
-  description: "सेनेटरी, नल, PVC पाइप, पेन्ट्स — कोरियानी, अमेठी",
+  title: "हार्डवेयर मैनेजर",
+  description: "हार्डवेयर एवं सेनेटरी स्टोर प्रबंधन प्रणाली",
 }
 
 export default function RootLayout({ children }) {
