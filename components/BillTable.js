@@ -23,19 +23,44 @@ export default async function BillTable() {
         <span className="font-bold text-[#0f2d5e]">🧾 आज के बिल</span>
         <button className="text-xs font-semibold text-[#1a3f7a]">सभी देखें →</button>
       </div>
-      <table className="w-full">
+
+      {/* मोबाइल कार्ड */}
+      <div className="divide-y divide-gray-50 lg:hidden">
+        {aajKeBill.length === 0 ? (
+          <div className="px-5 py-8 text-center text-gray-400 text-sm">आज कोई बिल नहीं बना</div>
+        ) : (
+          aajKeBill.map((row) => (
+            <div key={row.bill.id} className="px-4 py-3 flex items-center justify-between">
+              <div>
+                <div className="text-xs font-bold text-[#0f2d5e]">{row.bill.billNumber}</div>
+                <div className="text-sm font-semibold mt-0.5">{row.grahak?.naam ?? "—"}</div>
+              </div>
+              <div className="text-right">
+                <div className="text-sm font-bold text-green-700">₹{row.bill.kulRakam}</div>
+                <span className={`text-xs font-bold px-2 py-0.5 rounded-full mt-1 inline-block ${chip[row.bill.sthiti] ?? "bg-gray-100 text-gray-600"}`}>
+                  {row.bill.sthiti}
+                </span>
+              </div>
+            </div>
+          ))
+        )}
+      </div>
+
+      {/* डेस्कटॉप टेबल */}
+      <table className="w-full hidden lg:table">
         <thead>
           <tr className="bg-gray-50 text-xs text-gray-500 uppercase">
             <th className="px-5 py-3 text-left">बिल नं.</th>
             <th className="px-5 py-3 text-left">ग्राहक</th>
             <th className="px-5 py-3 text-left">रकम</th>
+            <th className="px-5 py-3 text-left">GST</th>
             <th className="px-5 py-3 text-left">स्थिति</th>
           </tr>
         </thead>
         <tbody>
           {aajKeBill.length === 0 ? (
             <tr>
-              <td colSpan={4} className="px-5 py-8 text-center text-gray-400 text-sm">
+              <td colSpan={5} className="px-5 py-8 text-center text-gray-400 text-sm">
                 आज कोई बिल नहीं बना
               </td>
             </tr>
@@ -45,8 +70,9 @@ export default async function BillTable() {
                 <td className="px-5 py-3 text-xs font-bold text-[#0f2d5e]">{row.bill.billNumber}</td>
                 <td className="px-5 py-3 text-sm font-semibold">{row.grahak?.naam ?? "—"}</td>
                 <td className="px-5 py-3 text-sm font-bold text-green-700">₹{row.bill.kulRakam}</td>
+                <td className="px-5 py-3 text-xs text-orange-600 font-semibold">₹{row.bill.gstRakam ?? 0}</td>
                 <td className="px-5 py-3">
-                  <span className={`text-xs font-bold px-2 py-1 rounded-full ${chip[row.bill.sthiti]}`}>
+                  <span className={`text-xs font-bold px-2 py-1 rounded-full ${chip[row.bill.sthiti] ?? "bg-gray-100 text-gray-600"}`}>
                     {row.bill.sthiti}
                   </span>
                 </td>

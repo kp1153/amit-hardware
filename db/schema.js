@@ -6,6 +6,7 @@ export const grahak = sqliteTable("grahak", {
   naam: text("naam").notNull(),
   mobile: text("mobile").notNull(),
   pata: text("pata"),
+  gstin: text("gstin"),
   banaya: text("banaya").default(sql`CURRENT_TIMESTAMP`),
 })
 
@@ -17,6 +18,8 @@ export const samaan = sqliteTable("samaan", {
   kharidMulya: real("kharid_mulya").notNull(),
   bikriMulya: real("bikri_mulya").notNull(),
   ikaai: text("ikaai").notNull(),
+  hsnCode: text("hsn_code"),
+  gstDar: real("gst_dar").notNull().default(18),
 })
 
 export const bill = sqliteTable("bill", {
@@ -24,6 +27,8 @@ export const bill = sqliteTable("bill", {
   billNumber: text("bill_number").notNull().unique(),
   grahakId: integer("grahak_id").references(() => grahak.id),
   kulRakam: real("kul_rakam").notNull(),
+  gstRakam: real("gst_rakam").notNull().default(0),
+  mulyaBeforeGst: real("mulya_before_gst").notNull().default(0),
   bhugtanVidhi: text("bhugtan_vidhi").notNull(),
   sthiti: text("sthiti").notNull().default("nakad"),
   banaya: text("banaya").default(sql`CURRENT_TIMESTAMP`),
@@ -35,6 +40,9 @@ export const billItem = sqliteTable("bill_item", {
   samaanId: integer("samaan_id").references(() => samaan.id),
   matra: integer("matra").notNull(),
   mulya: real("mulya").notNull(),
+  gstDar: real("gst_dar").notNull().default(18),
+  cgst: real("cgst").notNull().default(0),
+  sgst: real("sgst").notNull().default(0),
   kul: real("kul").notNull(),
 })
 

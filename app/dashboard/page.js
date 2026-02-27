@@ -17,18 +17,24 @@ export default async function Dashboard() {
   return (
     <div className="space-y-6">
       <h1 className="text-xl font-bold text-[#0f2d5e]">📊 आज का डैशबोर्ड</h1>
-      <div className="grid grid-cols-4 gap-4">
+
+      {/* स्टैट कार्ड — मोबाइल पर 2 कॉलम, डेस्कटॉप पर 4 */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         {ankde.map((s) => <StatCard key={s.label} {...s} />)}
       </div>
-      <div className="grid grid-cols-3 gap-5">
-        <div className="col-span-2">
+
+      {/* बिल और उधारी — मोबाइल पर एक के नीचे एक, डेस्कटॉप पर साथ */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+        <div className="lg:col-span-2">
           <Suspense fallback={<div className="text-sm text-gray-400">लोड हो रहा है...</div>}>
             <BillTable />
           </Suspense>
         </div>
-        <Suspense fallback={<div className="text-sm text-gray-400">लोड हो रहा है...</div>}>
-          <UdhaariList />
-        </Suspense>
+        <div>
+          <Suspense fallback={<div className="text-sm text-gray-400">लोड हो रहा है...</div>}>
+            <UdhaariList />
+          </Suspense>
+        </div>
       </div>
     </div>
   )
