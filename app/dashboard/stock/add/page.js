@@ -1,4 +1,4 @@
-import StockForm from "../StockForm"
+﻿import StockForm from "../StockForm"
 
 export default function StockAddPage() {
   return (

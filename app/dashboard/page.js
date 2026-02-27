@@ -1,4 +1,4 @@
-import { Suspense } from "react"
+﻿import { Suspense } from "react"
 import StatCard from "@/components/StatCard"
 import BillTable from "@/components/BillTable"
 import UdhaariList from "@/components/UdhaariList"

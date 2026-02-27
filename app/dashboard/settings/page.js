@@ -1,4 +1,4 @@
-export default function SettingsPage() {
+﻿export default function SettingsPage() {
   return (
     <div className="space-y-6 max-w-lg">
       <h1 className="text-xl font-bold text-[#0f2d5e]">⚙️ सेटिंग्स</h1>

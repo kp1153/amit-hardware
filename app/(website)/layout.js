@@ -1,4 +1,4 @@
-import Navbar from "@/components/website/Navbar"
+﻿import Navbar from "@/components/website/Navbar"
 import Footer from "@/components/website/Footer"
 
 export const metadata = {

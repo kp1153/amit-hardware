@@ -1,4 +1,4 @@
-import { db } from "@/db"
+﻿import { db } from "@/db"
 import { samaan } from "@/db/schema"
 
 export default async function StockPage() {

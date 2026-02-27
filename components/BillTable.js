@@ -1,4 +1,4 @@
-import { db } from "@/db"
+﻿import { db } from "@/db"
 import { bill, grahak } from "@/db/schema"
 import { desc, eq } from "drizzle-orm"
 

@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 import { useState } from "react"
 
 const paymentMethods = ["नकद", "UPI", "उधार", "आंशिक"]
@@ -18,6 +18,9 @@ export default function NewBillForm({ grahakSuchi, samaanSuchi }) {
   const [searchGrahak, setSearchGrahak] = useState("")
   const [searchSamaan, setSearchSamaan] = useState("")
   const [saving, setSaving] = useState(false)
+  const [done, setDone] = useState(null)
+
+  const udharWala = payment === "उधार" || payment === "आंशिक"
 
   const summary = items.reduce(
     (acc, i) => {
@@ -53,13 +56,14 @@ export default function NewBillForm({ grahakSuchi, samaanSuchi }) {
   const filteredSamaan = samaanSuchi?.filter((s) => s.naam.includes(searchSamaan))
 
   async function saveBill() {
-    if (!selectedGrahak || items.length === 0) return
+    if (items.length === 0) return
+    if (udharWala && !selectedGrahak) return alert("उधार के लिए ग्राहक जरूरी है")
     setSaving(true)
     const res = await fetch("/api/bill", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        grahakId: selectedGrahak.id,
+        grahakId: selectedGrahak?.id ?? null,
         items: items.map((i) => {
           const { base, cgst, sgst, kul } = gstCalc(i.bikriMulya, i.quantity, i.gstDar ?? 18)
           return { id: i.id, matra: i.quantity, mulya: i.bikriMulya, gstDar: i.gstDar ?? 18, cgst, sgst, kul }
@@ -72,21 +76,41 @@ export default function NewBillForm({ grahakSuchi, samaanSuchi }) {
     })
     setSaving(false)
     if (res.ok) {
+      const data = await res.json()
+      setDone(data.billNo)
       setItems([])
       setSelectedGrahak(null)
       setPayment("नकद")
-      alert("बिल सेव हो गया!")
     }
   }
+
+  if (done) return (
+    <div className="flex flex-col items-center justify-center py-16 space-y-4">
+      <div className="text-5xl">✅</div>
+      <div className="text-xl font-bold text-[#0f2d5e]">बिल सेव हो गया!</div>
+      <div className="text-gray-500 text-sm">बिल नंबर: <span className="font-bold text-[#0f2d5e]">{done}</span></div>
+      <div className="flex gap-3">
+        <a href={`/dashboard/bill`} className="bg-[#0f2d5e] text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-[#1a3f7a]">
+          🖨️ प्रिंट करें
+        </a>
+        <button onClick={() => setDone(null)} className="bg-gray-100 text-gray-700 px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-gray-200">
+          ➕ नया बिल
+        </button>
+      </div>
+    </div>
+  )
 
   return (
     <div className="flex flex-col lg:flex-row gap-4">
       {/* बायाँ हिस्सा */}
       <div className="flex-1 space-y-4">
 
-        {/* ग्राहक */}
+        {/* ग्राहक — optional */}
         <div className="bg-white rounded-xl border border-gray-200 p-4">
-          <div className="font-bold text-[#0f2d5e] mb-3">👤 ग्राहक चुनें</div>
+          <div className="flex items-center justify-between mb-3">
+            <div className="font-bold text-[#0f2d5e]">👤 ग्राहक</div>
+            <span className="text-xs text-gray-400">{udharWala ? "⚠️ उधार के लिए जरूरी" : "वैकल्पिक"}</span>
+          </div>
           {selectedGrahak ? (
             <div className="flex items-center justify-between bg-blue-50 rounded-lg px-4 py-3">
               <div>
@@ -99,7 +123,7 @@ export default function NewBillForm({ grahakSuchi, samaanSuchi }) {
             <div className="relative">
               <input
                 className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm outline-none focus:border-[#0f2d5e]"
-                placeholder="नाम या मोबाइल से खोजें"
+                placeholder="नाम या मोबाइल से खोजें (वैकल्पिक)"
                 value={searchGrahak}
                 onChange={(e) => setSearchGrahak(e.target.value)}
               />
@@ -152,7 +176,6 @@ export default function NewBillForm({ grahakSuchi, samaanSuchi }) {
             )}
           </div>
 
-          {/* मोबाइल पर कार्ड, डेस्कटॉप पर टेबल */}
           {items.length > 0 && (
             <>
               {/* मोबाइल कार्ड */}
@@ -226,7 +249,7 @@ export default function NewBillForm({ grahakSuchi, samaanSuchi }) {
         </div>
       </div>
 
-      {/* दायाँ हिस्सा — बिल सारांश */}
+      {/* दायाँ हिस्सा */}
       <div className="w-full lg:w-72 space-y-4">
         <div className="bg-white rounded-xl border border-gray-200 p-4 space-y-3">
           <div className="font-bold text-[#0f2d5e]">💰 बिल सारांश</div>
@@ -264,7 +287,7 @@ export default function NewBillForm({ grahakSuchi, samaanSuchi }) {
           </div>
 
           <button onClick={saveBill}
-            disabled={!selectedGrahak || items.length === 0 || saving}
+            disabled={items.length === 0 || saving}
             className="w-full bg-[#e63946] text-white py-3 rounded-lg font-bold text-sm disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[#c1121f] transition-colors">
             {saving ? "सेव हो रहा है..." : "🧾 बिल सेव करें"}
           </button>

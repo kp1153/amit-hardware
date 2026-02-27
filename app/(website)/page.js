@@ -1,4 +1,4 @@
-export default function HomePage() {
+﻿export default function HomePage() {
   return (
     <div>
       <section className="bg-[#0f2d5e] text-white py-16 px-6 text-center">

@@ -1,4 +1,4 @@
-import { db } from "@/db"
+﻿import { db } from "@/db"
 import { udhaari, grahak } from "@/db/schema"
 import { eq, sql } from "drizzle-orm"
 

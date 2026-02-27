@@ -1,4 +1,4 @@
-import { sql } from "drizzle-orm"
+﻿import { sql } from "drizzle-orm"
 import { integer, real, sqliteTable, text } from "drizzle-orm/sqlite-core"
 
 export const grahak = sqliteTable("grahak", {

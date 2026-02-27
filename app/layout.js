@@ -1,4 +1,4 @@
-import { Baloo_2, Noto_Sans_Devanagari } from "next/font/google"
+﻿import { Baloo_2, Noto_Sans_Devanagari } from "next/font/google"
 import "./globals.css"
 
 const baloo = Baloo_2({
