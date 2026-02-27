@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 
 const menu = [
   { naam: "डैशबोर्ड", path: "/dashboard", icon: "🏠" },
@@ -18,12 +18,18 @@ const menu = [
 
 export default function Sidebar() {
   const pathname = usePathname()
+  const router = useRouter()
+
+  async function handleLogout() {
+    await fetch("/api/logout", { method: "POST" })
+    router.push("/login")
+  }
 
   return (
     <aside className="w-64 min-h-screen bg-[#0f2d5e] flex flex-col fixed top-0 left-0">
       <div className="p-4 border-b border-white/10">
         <div className="text-white font-bold text-sm leading-snug">
-          अमित इण्टरप्राइजेज<br />एण्ड हार्डवेयर
+          अमित इंटरप्राइजेज<br />एंड हार्डवेयर
         </div>
         <div className="text-white/40 text-xs mt-1">कोरियानी, अमेठी</div>
         <div className="mt-3 flex items-center gap-2">
@@ -52,8 +58,14 @@ export default function Sidebar() {
         ))}
       </nav>
 
-      <div className="p-4 border-t border-white/10 text-white/30 text-[10px] text-center">
-        📍 कोरियानी, भुसियावाँ, अमेठी
+      <div className="p-4 border-t border-white/10">
+        <button
+          onClick={handleLogout}
+          className="w-full flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-white/60 hover:text-white hover:bg-white/5 rounded transition-all"
+        >
+          <span>🚪</span>
+          <span>लॉगआउट</span>
+        </button>
       </div>
     </aside>
   )
