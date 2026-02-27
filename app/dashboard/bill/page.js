@@ -1,6 +1,7 @@
 import { db } from "@/db"
 import { bill, grahak } from "@/db/schema"
 import { eq, desc } from "drizzle-orm"
+import Link from "next/link"
 
 const chip = {
   "नकद":    "bg-green-100 text-green-700",
@@ -40,6 +41,10 @@ export default async function BillByoraPage() {
                 </span>
               </div>
             </div>
+            <Link href={`/dashboard/bill/${row.bill.id}`}
+              className="mt-3 w-full block text-center bg-[#0f2d5e] text-white py-2 rounded-lg text-xs font-semibold">
+              🖨️ प्रिंट करें
+            </Link>
           </div>
         ))}
       </div>
@@ -56,11 +61,12 @@ export default async function BillByoraPage() {
               <th className="px-5 py-3 text-right">कुल रकम</th>
               <th className="px-5 py-3 text-left">भुगतान</th>
               <th className="px-5 py-3 text-left">तारीख</th>
+              <th className="px-5 py-3 text-center">प्रिंट</th>
             </tr>
           </thead>
           <tbody>
             {sabhiBill.length === 0 ? (
-              <tr><td colSpan={7} className="px-5 py-8 text-center text-gray-400">कोई बिल नहीं</td></tr>
+              <tr><td colSpan={8} className="px-5 py-8 text-center text-gray-400">कोई बिल नहीं</td></tr>
             ) : sabhiBill.map((row) => (
               <tr key={row.bill.id} className="border-t border-gray-50 hover:bg-gray-50">
                 <td className="px-5 py-3 font-bold text-[#0f2d5e]">{row.bill.billNumber}</td>
@@ -74,6 +80,12 @@ export default async function BillByoraPage() {
                   </span>
                 </td>
                 <td className="px-5 py-3 text-gray-500">{row.bill.banaya?.slice(0, 10)}</td>
+                <td className="px-5 py-3 text-center">
+                  <Link href={`/dashboard/bill/${row.bill.id}`}
+                    className="text-xs font-semibold text-[#0f2d5e] hover:underline">
+                    🖨️ प्रिंट
+                  </Link>
+                </td>
               </tr>
             ))}
           </tbody>

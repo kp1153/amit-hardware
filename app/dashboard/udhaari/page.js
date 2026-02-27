@@ -1,6 +1,7 @@
 import { db } from "@/db"
 import { udhaari, grahak } from "@/db/schema"
 import { eq, sql } from "drizzle-orm"
+import UdhaariChukao from "./UdhaariChukao"
 
 export default async function UdhaariPage() {
   const baaki = await db
@@ -20,7 +21,6 @@ export default async function UdhaariPage() {
         <div className="text-3xl font-bold text-red-700">₹{kul.toLocaleString("hi-IN")}</div>
       </div>
 
-      {/* मोबाइल कार्ड */}
       <div className="space-y-3 lg:hidden">
         {baaki.length === 0 ? (
           <div className="bg-white rounded-xl border border-gray-200 px-5 py-8 text-center text-gray-400 text-sm">कोई उधारी बाकी नहीं</div>
@@ -43,15 +43,15 @@ export default async function UdhaariPage() {
                 <span>चुकाया: ₹{row.udhaari.chukaya}</span>
                 <span>कुल: ₹{row.udhaari.rakam}</span>
               </div>
-              <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
+              <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden mb-3">
                 <div className="h-1.5 rounded-full bg-green-500" style={{ width: `${pct}%` }} />
               </div>
+              <UdhaariChukao id={row.udhaari.id} baki={baki} />
             </div>
           )
         })}
       </div>
 
-      {/* डेस्कटॉप टेबल */}
       <div className="hidden lg:block bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
         <table className="w-full text-sm">
           <thead className="bg-gray-50 text-xs text-gray-500 uppercase">
@@ -62,11 +62,12 @@ export default async function UdhaariPage() {
               <th className="px-5 py-3 text-right">चुकाया</th>
               <th className="px-5 py-3 text-right">बाकी</th>
               <th className="px-5 py-3 text-left">प्रगति</th>
+              <th className="px-5 py-3 text-center">भुगतान</th>
             </tr>
           </thead>
           <tbody>
             {baaki.length === 0 ? (
-              <tr><td colSpan={6} className="px-5 py-8 text-center text-gray-400">कोई उधारी बाकी नहीं</td></tr>
+              <tr><td colSpan={7} className="px-5 py-8 text-center text-gray-400">कोई उधारी बाकी नहीं</td></tr>
             ) : baaki.map((row) => {
               const baki = row.udhaari.rakam - row.udhaari.chukaya
               const pct = Math.min((row.udhaari.chukaya / row.udhaari.rakam) * 100, 100)
@@ -81,6 +82,9 @@ export default async function UdhaariPage() {
                     <div className="w-24 h-1.5 bg-gray-100 rounded-full overflow-hidden">
                       <div className="h-1.5 rounded-full bg-green-500" style={{ width: `${pct}%` }} />
                     </div>
+                  </td>
+                  <td className="px-5 py-3 text-center">
+                    <UdhaariChukao id={row.udhaari.id} baki={baki} />
                   </td>
                 </tr>
               )
