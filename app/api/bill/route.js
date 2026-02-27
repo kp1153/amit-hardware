@@ -1,4 +1,5 @@
-﻿import { db } from "@/db"
+﻿// F:\amit-hardware\app\api\bill\route.js
+import { db } from "@/db"
 import { bill, billItem, udhaari, samaan } from "@/db/schema"
 import { eq, sql } from "drizzle-orm"
 import { NextResponse } from "next/server"
@@ -44,5 +45,5 @@ export async function POST(req) {
     })
   }
 
-  return NextResponse.json({ success: true, billNo })
+  return NextResponse.json({ success: true, billNo, billId: newBill.id })
 }
