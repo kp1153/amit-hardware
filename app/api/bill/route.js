@@ -4,7 +4,7 @@ import { eq, sql } from "drizzle-orm"
 import { NextResponse } from "next/server"
 
 export async function POST(req) {
-  const { grahakId, items, bhugtan, kul } = await req.json()
+  const { grahakId, items, bhugtan, kul, gstRakam, mulyaBeforeGst } = await req.json()
 
   const billNo = `INV-${Date.now()}`
 
@@ -12,6 +12,8 @@ export async function POST(req) {
     billNumber: billNo,
     grahakId: grahakId,
     kulRakam: kul,
+    gstRakam: gstRakam ?? 0,
+    mulyaBeforeGst: mulyaBeforeGst ?? 0,
     bhugtanVidhi: bhugtan,
     sthiti: bhugtan,
   }).returning()
@@ -22,7 +24,10 @@ export async function POST(req) {
       samaanId: item.id,
       matra: item.matra,
       mulya: item.mulya,
-      kul: item.matra * item.mulya,
+      gstDar: item.gstDar ?? 18,
+      cgst: item.cgst ?? 0,
+      sgst: item.sgst ?? 0,
+      kul: item.kul,
     })
 
     await db.update(samaan)
@@ -30,12 +35,12 @@ export async function POST(req) {
       .where(eq(samaan.id, item.id))
   }
 
-  if (bhugtan === "udhar" || bhugtan === "aanshik") {
+  if (bhugtan === "उधार" || bhugtan === "आंशिक") {
     await db.insert(udhaari).values({
       grahakId: grahakId,
       billId: newBill.id,
       rakam: kul,
-      chukaya: bhugtan === "aanshik" ? kul / 2 : 0,
+      chukaya: bhugtan === "आंशिक" ? kul / 2 : 0,
     })
   }
 

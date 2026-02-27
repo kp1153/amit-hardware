@@ -3,13 +3,15 @@ import { samaan } from "@/db/schema"
 import { NextResponse } from "next/server"
 
 export async function POST(req) {
-  const { naam, shreni, ikaai, kharidMulya, bikriMulya, matra } = await req.json()
+  const { naam, shreni, ikaai, kharidMulya, bikriMulya, matra, hsnCode, gstDar } = await req.json()
   if (!naam || !kharidMulya || !bikriMulya) return NextResponse.json({ error: "जरूरी फील्ड खाली है" }, { status: 400 })
   const [newSamaan] = await db.insert(samaan).values({
     naam, shreni, ikaai,
     kharidMulya: parseFloat(kharidMulya),
     bikriMulya: parseFloat(bikriMulya),
     matra: parseInt(matra) || 0,
+    hsnCode: hsnCode || null,
+    gstDar: parseFloat(gstDar) ?? 18,
   }).returning()
   return NextResponse.json(newSamaan)
 }

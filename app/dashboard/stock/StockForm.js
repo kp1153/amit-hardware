@@ -4,10 +4,15 @@ import { useRouter } from "next/navigation"
 
 const shreniList = ["सेनेटरी", "नल", "PVC पाइप", "पेन्ट्स", "हार्डवेयर", "अन्य"]
 const ikaaiList = ["नग", "मीटर", "किलो", "लीटर", "पैकेट", "बॉक्स"]
+const gstList = [0, 5, 12, 18, 28]
 
 export default function StockForm() {
   const router = useRouter()
-  const [form, setForm] = useState({ naam: "", shreni: "सेनेटरी", ikaai: "नग", kharidMulya: "", bikriMulya: "", matra: "" })
+  const [form, setForm] = useState({
+    naam: "", shreni: "सेनेटरी", ikaai: "नग",
+    kharidMulya: "", bikriMulya: "", matra: "",
+    hsnCode: "", gstDar: 18,
+  })
   const [msg, setMsg] = useState("")
 
   async function handleSubmit(e) {
@@ -20,7 +25,7 @@ export default function StockForm() {
     })
     if (res.ok) {
       setMsg("सामान जोड़ा गया ✓")
-      setForm({ naam: "", shreni: "सेनेटरी", ikaai: "नग", kharidMulya: "", bikriMulya: "", matra: "" })
+      setForm({ naam: "", shreni: "सेनेटरी", ikaai: "नग", kharidMulya: "", bikriMulya: "", matra: "", hsnCode: "", gstDar: 18 })
       router.refresh()
     } else {
       setMsg("कुछ गड़बड़ हुई")
@@ -31,8 +36,8 @@ export default function StockForm() {
     <form onSubmit={handleSubmit} className="bg-white rounded-xl border border-gray-200 p-5 max-w-2xl">
       <div className="font-bold text-[#0f2d5e] mb-3">नया सामान जोड़ें</div>
       {msg && <p className="text-sm text-blue-600 mb-2">{msg}</p>}
-      <div className="grid grid-cols-2 gap-3">
-        <input className="border border-gray-200 rounded-lg px-4 py-2.5 text-sm outline-none focus:border-[#0f2d5e] col-span-2"
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <input className="border border-gray-200 rounded-lg px-4 py-2.5 text-sm outline-none focus:border-[#0f2d5e] sm:col-span-2"
           placeholder="सामान का नाम *" value={form.naam} onChange={e => setForm({ ...form, naam: e.target.value })} />
         <select className="border border-gray-200 rounded-lg px-4 py-2.5 text-sm outline-none focus:border-[#0f2d5e]"
           value={form.shreni} onChange={e => setForm({ ...form, shreni: e.target.value })}>
@@ -48,6 +53,19 @@ export default function StockForm() {
           placeholder="बिक्री मूल्य *" value={form.bikriMulya} onChange={e => setForm({ ...form, bikriMulya: e.target.value })} />
         <input type="number" className="border border-gray-200 rounded-lg px-4 py-2.5 text-sm outline-none focus:border-[#0f2d5e]"
           placeholder="शुरुआती मात्रा" value={form.matra} onChange={e => setForm({ ...form, matra: e.target.value })} />
+        <input className="border border-gray-200 rounded-lg px-4 py-2.5 text-sm outline-none focus:border-[#0f2d5e]"
+          placeholder="HSN कोड (जैसे 8481)" value={form.hsnCode} onChange={e => setForm({ ...form, hsnCode: e.target.value })} />
+        <div className="sm:col-span-2">
+          <div className="text-xs text-gray-500 mb-1.5">GST दर</div>
+          <div className="flex gap-2 flex-wrap">
+            {gstList.map(g => (
+              <button type="button" key={g} onClick={() => setForm({ ...form, gstDar: g })}
+                className={`px-4 py-2 rounded-lg text-sm font-semibold border transition-all ${form.gstDar === g ? "bg-[#0f2d5e] text-white border-[#0f2d5e]" : "bg-white text-gray-600 border-gray-200 hover:border-[#0f2d5e]"}`}>
+                {g}%
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
       <button type="submit" className="mt-4 bg-[#0f2d5e] text-white px-6 py-2.5 rounded-lg text-sm font-semibold hover:bg-[#1a3f7a]">
         जोड़ें
