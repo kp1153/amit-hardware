@@ -38,7 +38,7 @@ export default function Sidebar() {
   return (
     <>
       {/* DESKTOP SIDEBAR */}
-      <aside className="hidden md:flex w-64 min-h-screen bg-[#0f2d5e] flex-col fixed top-0 left-0">
+      <aside className="hidden md:flex w-64 h-screen bg-[#0f2d5e] flex-col fixed top-0 left-0">
         <div className="p-4 border-b border-white/10">
           <div className="text-white font-bold text-sm leading-snug">
             अमित इंटरप्राइजेज<br />एंड हार्डवेयर
@@ -65,7 +65,7 @@ export default function Sidebar() {
           ))}
         </nav>
         <button onClick={handleLogout}
-          className="w-full flex items-center gap-3 px-4 py-3 text-sm font-medium text-white/60 border-t border-white/10 hover:bg-white/5 hover:text-white transition-all">
+          className="w-full flex items-center gap-3 px-4 py-3 text-sm font-medium text-white/60 border-t border-white/10 hover:bg-white/5 hover:text-white transition-all flex-shrink-0">
           <span>🚪</span><span>लॉगआउट</span>
         </button>
       </aside>
