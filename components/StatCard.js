@@ -1,4 +1,4 @@
-﻿export default function StatCard({ icon, label, value, trend, type }) {
+export default function StatCard({ icon, label, value, trend, type }) {
   const color = type === "up" ? "text-green-600" : type === "down" ? "text-red-500" : "text-amber-500"
   return (
     <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-5">
