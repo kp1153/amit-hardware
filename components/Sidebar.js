@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
@@ -37,7 +37,7 @@ export default function Sidebar() {
 
   return (
     <>
-      {/* ── DESKTOP SIDEBAR ── */}
+      {/* DESKTOP SIDEBAR */}
       <aside className="hidden md:flex w-64 min-h-screen bg-[#0f2d5e] flex-col fixed top-0 left-0">
         <div className="p-4 border-b border-white/10">
           <div className="text-white font-bold text-sm leading-snug">
@@ -52,7 +52,7 @@ export default function Sidebar() {
             </div>
           </div>
         </div>
-        <nav className="flex-1 py-2">
+        <nav className="flex-1 py-2 overflow-y-auto">
           {menu.map((item) => (
             <Link key={item.path} href={item.path}
               className={`flex items-center gap-3 px-4 py-2.5 text-sm font-medium transition-all border-l-4
@@ -63,20 +63,20 @@ export default function Sidebar() {
               <span>{item.naam}</span>
             </Link>
           ))}
-          <button onClick={handleLogout}
-            className="w-full flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-white/60 border-l-4 border-transparent hover:bg-white/5 hover:text-white transition-all">
-            <span>🚪</span><span>लॉगआउट</span>
-          </button>
         </nav>
+        <button onClick={handleLogout}
+          className="w-full flex items-center gap-3 px-4 py-3 text-sm font-medium text-white/60 border-t border-white/10 hover:bg-white/5 hover:text-white transition-all">
+          <span>🚪</span><span>लॉगआउट</span>
+        </button>
       </aside>
 
-      {/* ── MOBILE TOP BAR ── */}
+      {/* MOBILE TOP BAR */}
       <div className="md:hidden fixed top-0 left-0 right-0 z-50 bg-[#0f2d5e] flex items-center justify-between px-4 py-3 shadow-md">
         <div className="text-white font-bold text-sm">अमित हार्डवेयर</div>
         <div className="text-white/40 text-xs">कोरियानी, अमेठी</div>
       </div>
 
-      {/* ── MOBILE BOTTOM NAV ── */}
+      {/* MOBILE BOTTOM NAV */}
       <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-[#0f2d5e] border-t border-white/10 flex">
         {bottomNav.map((item) =>
           item.path ? (
@@ -96,7 +96,7 @@ export default function Sidebar() {
         )}
       </div>
 
-      {/* ── MOBILE DRAWER (और वाला) ── */}
+      {/* MOBILE DRAWER */}
       {drawerOpen && (
         <div className="md:hidden fixed inset-0 z-50 flex flex-col justify-end">
           <div className="absolute inset-0 bg-black/50" onClick={() => setDrawerOpen(false)} />
