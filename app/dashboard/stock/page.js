@@ -1,6 +1,5 @@
 import { db } from "@/db"
 import { samaan } from "@/db/schema"
-import StockForm from "./StockForm"
 
 export default async function StockPage() {
   const suchi = await db.select().from(samaan).orderBy(samaan.naam)
@@ -8,7 +7,6 @@ export default async function StockPage() {
   return (
     <div className="space-y-6">
       <h1 className="text-xl font-bold text-[#0f2d5e]">📦 स्टॉक</h1>
-      <StockForm />
 
       {/* मोबाइल कार्ड */}
       <div className="space-y-3 lg:hidden">
